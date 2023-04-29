@@ -13,7 +13,7 @@ pub struct File{
 impl File{
     pub fn new(config: &Config) -> Result<File, Box<dyn Error>>{
         let contents = fs::read_to_string(&config.filename)?;
-        return Ok(File {filename: config.filename.clone(), contents: contents.to_owned(), length: contents.len()});
+        Ok(File {filename: config.filename.clone(), contents: contents.to_owned(), length: contents.len()})
     }
 
     pub fn word_count(&self){
@@ -42,7 +42,7 @@ impl File{
                 results.push(line);
             }
         }
-        return results;
+        results
     }    
 
 
@@ -66,7 +66,7 @@ impl File{
                 results.push(line);
             }
         }
-        return results;
+        results
     }    
 }
 
@@ -85,9 +85,9 @@ impl Config{
         // if args.len() > 3{
         //    return Err("Too many arguments");
         // }
-        return Ok(Config { query: String::from(&args[1]), 
+        Ok(Config { query: String::from(&args[1]), 
                         filename: String::from(&args[2]),
-                        case_sensitive: env::var("CASE_INSENSITIVE").is_err() });
+                        case_sensitive: env::var("CASE_INSENSITIVE").is_err() })
     }    
 }
 
